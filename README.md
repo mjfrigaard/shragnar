@@ -111,6 +111,10 @@ print(response$sources)
 
 The instructions below show how to use `{ragnar}` with a locally stored index.
 
+## Check requirements 
+
+Before using ollama to build a local RAG chatbot, check the requirements. Read [requirements.md](https://github.com/mjfrigaard/shragnar/blob/main/requirements.md) to make sure your machine is capable. 
+
 ### Install Ollama
 
 Pull a capable open model (nomic-embed-text for embeddings)
@@ -165,10 +169,13 @@ store <- ragnar_store_create(
 
 ### Run the local chat
 
+Load your local index:
 
 ```r
 store <- ragnar_store_open("shiny-book-local.duckdb")
 ```
+
+Start a chat session:
 
 ```r
 chat <- ragnar_chat_create(
@@ -178,6 +185,8 @@ chat <- ragnar_chat_create(
   base_url = "http://localhost:11434"
 )
 ```
+
+Ask a question:
 
 ```r
 response <- ragnar_chat_message(
