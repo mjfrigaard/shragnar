@@ -142,7 +142,7 @@ Chunk the book:
 
 ```r
 chunks <- markdown_chunk(
-  dir = "~/projects/books/shiny-app-pkgs",
+  dir = "shiny-app-pkgs",
   pattern = "\\.qmd$"
 )
 ```
