@@ -95,16 +95,18 @@ response <- ragnar_chat_message(
 )
 ```
 
-The response object includes:   
- - `$answer`: Claude's response grounded in your book   
- - `$sources`: List of chunks used to generate the response   
- - `$citations`: Links back to the `.qmd` files   
+View response:
 
 ```r
 cat(response$answer)
 cat("\n\nSources:\n")
 print(response$sources)
 ```
+
+The response object includes:   
+ - `$answer`: Claude's response grounded in your book   
+ - `$sources`: List of chunks used to generate the response   
+ - `$citations`: Links back to the `.qmd` files   
 
 
 ## Local model 
@@ -194,6 +196,8 @@ response <- ragnar_chat_message(
   "Explain the difference between module-based and R6-based architecture in Shiny app-packages."
 )
 ```
+
+View the response:
 
 ```r
 cat(response$answer)
