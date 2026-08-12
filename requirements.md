@@ -2,6 +2,20 @@
 
 Full requirements list for running a `{ragnar}` chatbot on a RHEL 9 (Fedora) Linux server, including discovery commands to verify each requirement is met.
 
+## Requirements Checklist
+
+- [ ] RHEL 9 system with 2+ GB RAM and 2+ GB disk
+- [ ] R 4.1.0+ installed
+- [ ] `{ragnar}`, `{duckdb}`, and dependencies installed
+- [ ] Compilation tools (gcc, make, openssl-devel)
+- [ ] API key set (Anthropic OR OpenAI) OR Ollama installed and running
+- [ ] Shiny Server installed (for interactive chatbot)
+- [ ] Web server configured (nginx or Apache)
+- [ ] Firewall rules configured
+- [ ] SSL/TLS certificate installed
+- [ ] `.env` or systemd environment file configured with API keys
+- [ ] Initial index built and verified
+
 ## System Requirements
 
 ### Operating System
