@@ -30,6 +30,39 @@ cd shiny-app-pkgs
 
 Assuming you have an API key from Anthropic or OpenAI, follow the instructions below for setting up the local index.
 
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'fontFamily': 'monospace', "darkMode":true}}}}%%
+flowchart TD
+    Start(["Book .qmd files"])
+
+    subgraph BuildIndex["<strong>Build the Index</strong>"]
+        Chunk["<code>markdown_chunk()</code>"]
+        Embed["<code>embed_anthropic()</code>"]
+        Store[("<code>shiny-book-index.duckdb</code>")]
+        Chunk --> Embed --> Store
+    end
+
+    subgraph RunChat["<strong>Run the Chat</strong>"]
+        Open["<code>ragnar_store_open()</code>"]
+        Create["<code>ragnar_chat_create()</code>"]
+        Ask[/"User question"/]
+        Message["<code>ragnar_chat_message()</code>"]
+        Answer[\"answer + sources"\]
+        Open --> Create --> Ask --> Message --> Answer
+    end
+
+    Start --> Chunk
+    Store --> Open
+
+    style BuildIndex fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:10,ry:10
+    style RunChat fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:10,ry:10
+    style Chunk fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Embed fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Open fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Create fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Message fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+```
+
 ### API keys 
 
 ```bash
@@ -112,6 +145,42 @@ The response object includes:
 ## Local model 
 
 The instructions below show how to use `{ragnar}` with a locally stored index.
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'fontFamily': 'monospace', "darkMode":true}}}}%%
+flowchart TD
+    Start(["Book .qmd files"])
+    Ollama{{"ollama serve<br>(nomic-embed-text, mistral)"}}
+
+    subgraph BuildIndex["<strong>Build the Local Index</strong>"]
+        Chunk["<code>markdown_chunk()</code>"]
+        Embed["<code>embed_ollama()</code>"]
+        Store[("<code>shiny-book-local.duckdb</code>")]
+        Chunk --> Embed --> Store
+    end
+
+    subgraph RunChat["<strong>Run the Local Chat</strong>"]
+        Open["<code>ragnar_store_open()</code>"]
+        Create["<code>ragnar_chat_create()</code>"]
+        Ask[/"User question"/]
+        Message["<code>ragnar_chat_message()</code>"]
+        Answer[\"answer"\]
+        Open --> Create --> Ask --> Message --> Answer
+    end
+
+    Start --> Chunk
+    Ollama -.-> Embed
+    Ollama -.-> Create
+    Store --> Open
+
+    style BuildIndex fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:10,ry:10
+    style RunChat fill:#FFFFFF,color:#000000,stroke:#333,stroke-width:1px,rx:10,ry:10
+    style Chunk fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Embed fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Open fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Create fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+    style Message fill:#4CBB9D,color:#FFFFFF,rx:5,ry:5
+```
 
 ## Check requirements 
 
