@@ -482,17 +482,3 @@ Always use HTTPS for public deployments:
 sudo dnf install -y certbot python3-certbot-nginx
 sudo certbot certonly --nginx -d yourdomain.com
 ```
-
-## Summary Checklist
-
-- [ ] RHEL 9 system with 2+ GB RAM and 2+ GB disk
-- [ ] R 4.1.0+ installed
-- [ ] `{ragnar}`, `{duckdb}`, and dependencies installed
-- [ ] Compilation tools (gcc, make, openssl-devel)
-- [ ] API key set (Anthropic OR OpenAI) OR Ollama installed and running
-- [ ] Shiny Server installed (for interactive chatbot)
-- [ ] Web server configured (nginx or Apache)
-- [ ] Firewall rules configured
-- [ ] SSL/TLS certificate installed
-- [ ] `.env` or systemd environment file configured with API keys
-- [ ] Initial index built and verified
