@@ -1,17 +1,20 @@
+# install.packages(c("ragnar", "duckdb"))
+
 library(ragnar)
 library(duckdb)
 
-book_path <- "shiny-app-pkgs"
+book_path <- "book/shiny-app-pkgs-main"
 
-chunks <- markdown_chunk(
-  dir = book_path,
-  pattern = "\\.qmd$"
-)
+# Files starting with _ are Quarto partials (not chapter content); excluded by pattern
+qmd_paths <- list.files(book_path, pattern = "^[^_].*\\.qmd$", full.names = TRUE)
 
-embedded <- embed_anthropic(
-  chunks,
-  model = "claude-3-5-sonnet-20241022"
-)
+chunks <- lapply(qmd_paths, \(path) markdown_chunk(read_as_markdown(path))) |>
+  dplyr::bind_rows()
+
+# confirm structure
+str(chunks)
+
+embedded <- embed_ollama(chunks, model = "nomic-embed-text")
 
 store <- ragnar_store_create(
   embedded,
